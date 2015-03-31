@@ -1,2 +1,28 @@
-<h1>Songs#index</h1>
-<p>Find me in app/views/songs/index.html.erb</p>
+<%= render 'shared/navbar' %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Song Library</title>
+  </head>
+  <body>
+    <div class='container'>
+
+      <div class="row">
+        <div class="col-md-3">
+          <h3>Songs</h3>
+          <h5><%= link_to 'Add a song', new_song_path %></h5>
+          <ul>
+            <% @songs.each do |song| %>
+              <li><%= link_to "#{song.title} - #{song.artist}", song_path(song) %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="col-md-9">
+          <p>Hey hey hey</p>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>

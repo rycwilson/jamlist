@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+@import "bootswatch/sandstone/variables";
+@import "bootstrap";
+/* body { padding-top: 20px; } */
+@import "bootswatch/cerulean/bootswatch";
+
+.iframe {
+  width: 100%;
+  height: 800px;
+  margin-top: -335px;
+  padding-top: 20px;
+}

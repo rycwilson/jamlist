@@ -1,0 +1,39 @@
+<%= render 'shared/navbar' %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Setlist - Add Song</title>
+  </head>
+  <body>
+    <div class='container'>
+
+      <h5><%= link_to 'Cancel', setlist_path(@setlist) %></h5>
+      <h3>Setlist: <%= @setlist.name %></h3>
+      <!-- For the form autocomplete to work, the option tag must be given
+      value="whatever you want to autocomplete". -->
+      <%= form_tag(add_setlist_song_path(@setlist), method: "post") do %>
+        <datalist id="library_songs">
+          <% @songs_all.each do |song| %>
+            <option value="<%= song.title %> - <%= song.artist %>">
+          <% end %>
+        </datalist>
+        <%= label_tag(:song_lib, "Add existing song from library: ") %> <br>
+        <%= label_tag(:song_lib, "Song: ") %>
+        <%= text_field_tag(:song_lib, nil, list: "library_songs") %>
+        <%= submit_tag("Add") %>
+      <% end %>
+      <br>
+      <%= form_for(@song_new, url: add_setlist_song_path(@setlist)) do |f| %>
+        <%= f.label("Add new song to library/setlist:") %> <br>
+        <%= f.label(:artist, "Artist: ") %>
+        <%= f.text_field(:artist) %>
+        <%= f.label(:title, "Title: ") %>
+        <%= f.text_field(:title) %>
+        <%= submit_tag("Add") %>
+      <% end %>
+      <br>
+
+    </div>
+  </body>
+</html>

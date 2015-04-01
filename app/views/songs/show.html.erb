@@ -13,11 +13,11 @@
           <h2>Songs</h2>
           <h5><%= link_to 'Add a song', new_song_path %></h5>
           <ul>
-            <% @songs.each do |song| %>
+            <% @songs_all.each do |song| %>
               <li><%= link_to "#{song.title} - #{song.artist}", song_path(song) %></li>
               <% if @song == song  %>
-                <%= form_for(@song, url: song_path(@song), method:"put") do |f| %>
-                  <%= f.text_area(:notes, cols:40, rows:6) %>
+                <%= form_for(@song, url: song_path(@song), html: { method:"put", class:"notes" }) do |f| %>
+                  <%= f.text_area(:notes, cols:45, rows:6) %>
                   <%= f.submit "Save" %>
                 <% end %>
               <% end %>

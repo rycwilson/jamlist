@@ -27,7 +27,7 @@ gem 'pry-rails'
 gem 'better_errors'
 gem 'bootstrap-sass', '~> 3.3.3'
 gem 'bootswatch-rails'
-gem 'typhoeus'
+gem 'json'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

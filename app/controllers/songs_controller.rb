@@ -20,7 +20,6 @@ class SongsController < ApplicationController
   end
 
   def show
-    @songs = Song.all
     @lyrics_url = "http://lyrics.wikia.com/#{@song.artist.split.join('_')}:#{@song.title.split.join('_')}"
   end
 
@@ -42,13 +41,13 @@ class SongsController < ApplicationController
   end
 
   def update
-    binding.pry
-    @song.update_attributes song_params
-    if @song.save
-      redirect_to song_path(@song)
-    else
-      flash[:alert] = "Input validations failed"
-      redirect_to song_path(@song)
+    respond_to do |format|
+      if @song.update_attributes song_params
+        format.html
+        format.json { render json: @song, status: :ok }
+      else
+        flash[:alert] = "Input validations failed"
+      end
     end
   end
 

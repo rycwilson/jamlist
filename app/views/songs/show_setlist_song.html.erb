@@ -19,7 +19,7 @@
             <% @songs.each do |song| %>
               <li class="song"><%= link_to "#{song.title}" + ' - ' + "#{song.artist}", {:controller => "songs", :action => "show_setlist_song", :id => @setlist.id, :song_id => song.id } %> </li>
               <% if @song == song  %>
-                <%= form_for(@song, url: setlist_song_path(@setlist, @song), method:"put") do |f| %>
+                <%= form_for(@song, url: setlist_song_path(@setlist, @song), html: {method:"put", class:"notes"}) do |f| %>
                   <%= f.text_area(:notes, cols:40, rows:6) %>
                   <%= f.submit "Save" %>
                 <% end %>

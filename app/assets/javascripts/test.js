@@ -14,18 +14,51 @@ $(document).ready(function() {
     });
   }
 
+  //
+  // Some issues with the response from LyricsWiki, so
+  // lyrics are presently accessed directly by the server
+  // via url string manipulation.
+  // This function not presently in use
+  //
   $('.song').click(function() {
     var song = $(this)[0].innerText;
-    console.log(song);
     // parse out the title and artist from the song
     var title = song.substr(0, song.indexOf('-') - 1);
     var artist = song.substr(song.indexOf('-') + 2, song.length);
-    console.log(title, artist);
     // searchAPI(artist, title);
   });
 
+  // Save song notes
+  // AJAX sends the update so as to avoid a lyrics reload
+  //
+  // need to know current song?
+  $('.notes').submit(function(e) {
+    e.preventDefault();
+    var notes = $(this).find('#song_notes').val();
+    var data = JSON.stringify({"song": { "notes": notes }});
+    var song_id = e.target.baseURI[e.target.baseURI.length - 1];
+    console.log('AJAX request sent for: song_id:' + song_id);
+    console.log('Data:' + data);
+    $.ajax({
+      url: "http://localhost:3000/songs/" + song_id + ".json",
+      type: "PUT",
+      data: data,
+      contentType: 'application/json',
+      dataType: 'html',
+      success: function(data, status) {
+        console.log('success: ', data, status);
+      },
+      error: function(object, status) {
+        console.log('error: ', object, status);
+      }
+    });
+  });
+
+  // Functions to sort the master song list alphabetically,
+  // either by title or artist
+  // Buggy!
   $('.title_sort').click(function(e) {
-    console.log("title clicked");
+    console.log("title_sort clicked");
     e.preventDefault();
     var songs = $('ul.song_list > li').get();
     songs.sort(function(a, b) {
@@ -37,9 +70,11 @@ $(document).ready(function() {
   });
 
   $('.artist_sort').click(function(e) {
+    console.log('artist_sort clicked');
     e.preventDefault();
     var songs = $('ul.song_list > li').get();
-    // # songs are stored as "<title> - <artist>"; need to flip this
+    // # songs are stored as "<title> - <artist>"
+    // need to flip this to "<artist> - <song>"
     var flipped = songs.map(function(song) {
       var song_html = $(song).html();
       var start_tag = song_html.substr(0, song_html.indexOf('>') + 1);
@@ -59,29 +94,3 @@ $(document).ready(function() {
   });
 
 });
-
-// Bootstrap tab.js plugin
-// Enable tabbable tabs via JavaScript (each tab needs to be activated individually):
-// $('#myTab a').click(function (e) {
-//   e.preventDefault();
-//   $(this).tab('show');
-// });
-
-// You can activate individual tabs in several ways:
-// $('#myTab a[href="#profile"]').tab('show'); // Select tab by name
-// $('#myTab a:first').tab('show'); // Select first tab
-// $('#myTab a:last').tab('show'); // Select last tab
-// $('#myTab li:eq(2) a').tab('show'); // Select third tab (0-indexed)
-
-// If you are using navs to provide a navigation bar, be sure to add a role="navigation"
-// to the most logical parent container of the <ul>, or wrap a <nav> element around the
-// whole navigation. Do not add the role to the <ul> itself, as this would prevent it from
-// being announced as an actual list by assistive technologies.
-
-// (Note the .nav-tabs class requires the .nav base class.)
-
-// <ul class="nav nav-tabs">
-//   <li role="presentation" class="active"><a href="#">Home</a></li>
-//   <li role="presentation"><a href="#">Profile</a></li>
-//   <li role="presentation"><a href="#">Messages</a></li>
-// </ul>

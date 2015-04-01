@@ -13,11 +13,22 @@ To delete an association:
 
 
 challenges
-  learned how to pass a parameter through linked_to.  not as straightforward as thought
-  lots of parameter passing to keep track of redirection
+  Getting to a particular view, having come from two different places
+  - could have used redirect_to :back ?
+  - i.e. Songs library and Setlist songs
   overcome: jquery's a ul li  when the li's are all added by embedded ruby
+  server infinite loop when updating notes
 
 Must have:
+AJAX to update notes
 sort songs (alphabetical, by artist) and setlist (by date)
-hide notes
+- not working
+hide, expand notes
 delete songs
+
+Want:
+better styling
+- bigger font size
+when open a song, send it to the top of the list
+Songs/Setlists columns scrollable
+song notes field scrollable

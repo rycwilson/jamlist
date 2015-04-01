@@ -9,16 +9,18 @@
     <div class='container'>
 
       <div class="row">
-        <div class="col-md-3">
-          <h3>Songs</h3>
-          <h5><%= link_to 'Add a song', new_song_path %></h5>
-          <ul>
-            <% @songs.each do |song| %>
+        <div class="col-md-4">
+          <h2>Songs</h2>
+          <!-- remove song not functional -->
+          <h5><%= link_to 'Add song', new_song_path %> / <%= link_to 'Remove song(s)', songs_path %></h5>
+          <h5>Sort by: <a href="#" class="title_sort">Title</a> / <a href="#" class="artist_sort">Artist</a></h5>
+          <ul class="song_list">
+            <% @songs_all.each do |song| %>
               <li><%= link_to "#{song.title} - #{song.artist}", song_path(song) %></li>
             <% end %>
           </ul>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-8">
           <p>Hey hey hey</p>
         </div>
       </div>

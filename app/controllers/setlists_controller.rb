@@ -3,10 +3,11 @@ class SetlistsController < ApplicationController
   before_action :find_setlist, only: [:show, :edit, :update, :destroy, :new_song]
   before_action :find_setlist_songs, only: [:show, :edit]
 
+  # The shared navbar needs access to all songs
+  before_action :find_all_songs
+
   def index
-    @songs = Song.all
-    @master = Setlist.where(name:'master')[0]
-    @setlists = Setlist.all - Setlist.where(name:'master')
+    @setlists = Setlist.all
   end
 
   def new
@@ -14,7 +15,6 @@ class SetlistsController < ApplicationController
   end
 
   def show
-    @songs_all = Song.all
   end
 
   def edit
@@ -31,12 +31,18 @@ class SetlistsController < ApplicationController
   end
 
   def update
-    @setlist.update_attributes setlist_params
-    if @setlist.save
-      redirect_to setlist_path(@setlist)
+    # catch any updates to song notes that come through
+    if (song = Song.find params[:song_id])
+      # no notes field validations to check
+      song.update_attributes song_params
+      redirect_to setlist_song_path(@setlist, song)
     else
-      flash.now[:alert] = "Input validations failed"
-      render :edit
+      if @setlist.update_attributes setlist_params
+        redirect_to setlist_path(@setlist)
+      else
+        flash.now[:alert] = "Input validations failed"
+        render :edit
+      end
     end
   end
 
@@ -46,7 +52,6 @@ class SetlistsController < ApplicationController
   end
 
   def new_song
-    @songs_all = Song.all
     @song_new = Song.new
   end
 
@@ -84,12 +89,16 @@ class SetlistsController < ApplicationController
     @songs = @setlist.songs
   end
 
+  def find_all_songs
+    @songs_all = Song.all
+  end
+
   def setlist_params
     params.require(:setlist).permit(:name)
   end
 
   def song_params
-    params.require(:song).permit(:artist, :title)
+    params.require(:song).permit(:artist, :title, :notes)
   end
 
 end

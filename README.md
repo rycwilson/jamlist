@@ -10,14 +10,14 @@ Robustness:
 To delete an association:
   Setlist.find(1).songs.delete(Song.find(5))
 
-Add sort_by feature to Songs list
+
 
 challenges
   learned how to pass a parameter through linked_to.  not as straightforward as thought
+  lots of parameter passing to keep track of redirection
+  overcome: jquery's a ul li  when the li's are all added by embedded ruby
 
-  Removing notes for now:
-  <div class='col-md-4'>
-    <br>
-    <h3>Notes: <%= @song.title %></h3>
-    <%= text_area(@song, :notes, cols:50, rows:10, readonly:"true") %>
-  </div>
+Must have:
+sort songs (alphabetical, by artist) and setlist (by date)
+hide notes
+delete songs

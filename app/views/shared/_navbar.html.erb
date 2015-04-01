@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><strong>The Jam List</strong></a>
+      <a class="navbar-brand" href="#"><strong>We're Jammin'</strong></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,12 +17,19 @@
         <li class="<%= 'active' if current_page?(setlists_path) %>"><%= link_to "Setlists", setlists_path %></li>
         <li class="<%= 'active' if current_page?(songs_path) %>"><%= link_to "Songs", songs_path %></li>
       </ul>
-      <form class="navbar-form navbar-left" role="search">
+
+      <%= form_tag(songs_path, method: "get", class: "navbar-form navbar-left",  role: "search") do %>
+        <datalist id="library_songs">
+          <% @songs_all.each do |song| %>
+            <option value="<%= song.title %> - <%= song.artist %>">
+          <% end %>
+        </datalist>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <%= text_field_tag(:go_to_song, nil, class: "form-control", placeholder: "Find a song", list: "library_songs") %>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
+        <%= submit_tag("Open", class: "btn btn-default") %>
+      <% end %>
+
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Logout</a></li>
       </ul>

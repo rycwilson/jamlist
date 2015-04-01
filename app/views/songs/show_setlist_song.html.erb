@@ -9,24 +9,27 @@
     <div class='container'>
 
       <div class='row'>
-        <div class='col-md-3'>  <!-- column 1 -->
-          <h3><%= @setlist.name %></h3>
+        <div class='col-md-4'>  <!-- column 1 -->
+          <h2><%= @setlist.name %></h2>
           <!-- The remove song(s) feature needs to be built out on client side with jquery -->
-          <h5><%= link_to 'Edit', edit_setlist_path(@setlist) %> / <%= link_to 'Delete', setlist_path(@setlist), method: :delete, data: {confirm: "Are you sure?"} %> / <%= link_to 'Add a song', add_setlist_song_path(@setlist) %> / <%= link_to 'Remove song(s)', setlist_path(@setlist) %></h5>
-          <br>
+          <h5><%= link_to 'Edit', edit_setlist_path(@setlist) %> / <%= link_to 'Delete', setlist_path(@setlist), method: :delete, data: {confirm: "Are you sure?"} %></h5>
+          <h5><%= link_to 'Add song', add_setlist_song_path(@setlist) %> / <%= link_to 'Remove song(s)', setlist_path(@setlist) %></h5>
+          <hr>
           <ul>
             <% @songs.each do |song| %>
               <li class="song"><%= link_to "#{song.title}" + ' - ' + "#{song.artist}", {:controller => "songs", :action => "show_setlist_song", :id => @setlist.id, :song_id => song.id } %> </li>
+              <% if @song == song  %>
+                <%= form_for(@song, url: setlist_song_path(@setlist, @song), method:"put") do |f| %>
+                  <%= f.text_area(:notes, cols:40, rows:6) %>
+                  <%= f.submit "Save" %>
+                <% end %>
+              <% end %>
             <% end %>
           </ul>
         </div>
-        <div class='col-md-4'>
-          <h3>Notes: <%= @song.title %></h3>
-          <%= text_area(@song, :notes, cols:50, rows:10, readonly:"true") %>
-        </div>
-        <div class="col-md-5">  <!-- column 2 -->
+        <div class="col-md-8">  <!-- column 2 -->
           <div style="overflow:hidden">
-            <iframe class="iframe" src=<%= "#{@song_url}" %>>
+            <iframe class="iframe" src=<%= "#{@lyrics_url}" %>>
             </iframe>
           </div>
         </div>

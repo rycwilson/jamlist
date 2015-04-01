@@ -1,0 +1,36 @@
+<%= render 'shared/navbar' %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Song</title>
+  </head>
+  <body>
+    <div class='container'>
+
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Songs</h2>
+          <h5><%= link_to 'Add a song', new_song_path %></h5>
+          <ul>
+            <% @songs.each do |song| %>
+              <li><%= link_to "#{song.title} - #{song.artist}", song_path(song) %></li>
+              <% if @song == song  %>
+                <%= form_for(@song, url: song_path(@song), method:"put") do |f| %>
+                  <%= f.text_area(:notes, cols:40, rows:6) %>
+                  <%= f.submit "Save" %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+        <div class="col-md-8">
+          <div style="overflow:hidden">
+          <iframe class="iframe" src=<%= "#{@lyrics_url}" %>></iframe>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>

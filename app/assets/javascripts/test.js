@@ -24,6 +24,40 @@ $(document).ready(function() {
     // searchAPI(artist, title);
   });
 
+  $('.title_sort').click(function(e) {
+    console.log("title clicked");
+    e.preventDefault();
+    var songs = $('ul.song_list > li').get();
+    songs.sort(function(a, b) {
+      return $(a).text().toLowerCase().localeCompare($(b).text().toLowerCase());
+    });
+    songs.forEach(function(song) {
+      $('ul.song_list').append(song);
+    });
+  });
+
+  $('.artist_sort').click(function(e) {
+    e.preventDefault();
+    var songs = $('ul.song_list > li').get();
+    // # songs are stored as "<title> - <artist>"; need to flip this
+    var flipped = songs.map(function(song) {
+      var song_html = $(song).html();
+      var start_tag = song_html.substr(0, song_html.indexOf('>') + 1);
+      var close_tag = song_html.substr(song_html.length - 4, song_html.length - 1);
+      var flipped_song =
+        $(song).text().substr($(song).text().indexOf('-') + 2, $(song).text().length) + ' - ' +
+        $(song).text().substr(0, $(song).text().indexOf('-') - 1);
+      return start_tag + flipped_song + close_tag;
+    });
+    flipped.sort(function(a, b) {
+      return $(a).text().toLowerCase().localeCompare($(b).text().toLowerCase());
+    });
+    $('ul.song_list').empty();
+    flipped.forEach(function(song) {
+      $('ul.song_list').append("<li>" + song + "</li>");
+    });
+  });
+
 });
 
 // Bootstrap tab.js plugin

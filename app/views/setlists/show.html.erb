@@ -8,10 +8,11 @@
   <body>
     <div class='container'>
 
-      <h3><%= @setlist.name %></h3>
+      <h2><%= @setlist.name %></h2>
       <!-- The remove song(s) feature needs to be built out on client side with jquery -->
-      <h5><%= link_to 'Edit', edit_setlist_path(@setlist) %> / <%= link_to 'Delete', setlist_path(@setlist), method: :delete, data: {confirm: "Are you sure?"} %> / <%= link_to 'Add a song', add_setlist_song_path(@setlist) %> / <%= link_to 'Remove song(s)', setlist_path(@setlist) %></h5>
-      <br>
+      <h5><%= link_to 'Edit', edit_setlist_path(@setlist) %> / <%= link_to 'Delete', setlist_path(@setlist), method: :delete, data: {confirm: "Are you sure?"} %></h5>
+      <h5><%= link_to 'Add song', add_setlist_song_path(@setlist) %> / <%= link_to 'Remove song(s)', setlist_path(@setlist) %></h5>
+      <hr>
       <ul>
         <% @songs.each do |song| %>
           <li class="song"><%= link_to "#{song.title}" + ' - ' + "#{song.artist}", {:controller => "songs", :action => "show_setlist_song", :id => @setlist.id, :song_id => song.id } %> </li>

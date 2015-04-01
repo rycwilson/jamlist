@@ -20,7 +20,7 @@ challenges
   server infinite loop when updating notes
 
 Must have:
-AJAX to update notes
+check AJAX to update notes
 sort songs (alphabetical, by artist) and setlist (by date)
 - not working
 hide, expand notes

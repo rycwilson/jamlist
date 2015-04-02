@@ -28,6 +28,7 @@ gem 'better_errors'
 gem 'bootstrap-sass', '~> 3.3.3'
 gem 'bootswatch-rails'
 gem 'json'
+gem 'jquery-turbolinks'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

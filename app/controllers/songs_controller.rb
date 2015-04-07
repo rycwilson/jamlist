@@ -20,14 +20,14 @@ class SongsController < ApplicationController
   end
 
   def show
-    @lyrics_url = "https://lyrics.wikia.com/#{@song.artist.split.join('_')}:#{@song.title.split.join('_')}"
+    @lyrics_url = "http://lyrics.wikia.com/#{@song.artist.split.join('_')}:#{@song.title.split.join('_')}"
   end
 
   def show_setlist_song
     @setlist = Setlist.find params[:id]
     @song = Song.find params[:song_id]
     @songs = @setlist.songs
-    @lyrics_url = "https://lyrics.wikia.com/#{@song.artist.split.join('_')}:#{@song.title.split.join('_')}"
+    @lyrics_url = "http://lyrics.wikia.com/#{@song.artist.split.join('_')}:#{@song.title.split.join('_')}"
   end
 
   def create

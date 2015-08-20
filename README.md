@@ -1,7 +1,8 @@
-Most proud of:
-- got it done in 4 days, getting better with Rails
-- worked my way out of a big hole yesterday
-- AJAX to update notes
+Changes to make when pushing to Heroku:
+1 - http -> https
+2 - AJAX URL:
+    http://localhost:3000/songs/
+    https://heroku_app/songs/
 
 
 What to do with more time:
@@ -11,7 +12,7 @@ Setlists/Songs columns scrollable
 random image generator
 band in town API
 Record songs!
-Sort function is buggy
+DONE - Sort function is buggy
 Notes: expand to make bigger
   add a template (e.g. "intro", "verse", "chorus", "transition")
   ability to hide
@@ -34,6 +35,9 @@ song counter
 
 To delete an association:
   Setlist.find(1).songs.delete(Song.find(5))
+Find a model object with attribute containing a substring:
+  Song.where('keywords LIKE ?', '%whatever%')
+  -> still case sensitive
 
 challenges
   Getting to a particular view, having come from two different places

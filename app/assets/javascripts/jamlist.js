@@ -15,9 +15,6 @@ app.controller("MainCtrl", ['$scope', '$http', 'songFactory', 'setlistFactory',
   allSongs();
   allSetlists();
 
-  console.log($scope.songs);
-  console.log($scope.setlists);
-
   function allSongs () {
     songFactory.getSongs()
       .success(function (songs) {
@@ -39,6 +36,14 @@ app.controller("MainCtrl", ['$scope', '$http', 'songFactory', 'setlistFactory',
         console.log('Error loading data: ' + error.message);
       });
   }
+
+  $scope.tabSelected = function(checkTab) {
+    return $scope.tab === checkTab;
+  };
+
+  $scope.selectTab = function(setTab) {
+    $scope.tab = setTab;
+  };
 
 }]);
 

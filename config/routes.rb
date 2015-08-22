@@ -1,21 +1,17 @@
 Rails.application.routes.draw do
 
-  root 'setlists#index'
+  root 'site#index'
 
-  resources :setlists
-  resources :songs
+  get '/jamlist', to: 'site#show'
 
-  get '/setlists/:id/songs/new', to: 'setlists#new_song', as: :new_setlist_song
-  get '/setlists/:id/songs/:song_id', to: 'songs#show_setlist_song', as: :setlist_song
-  put '/setlists/:id/songs/:song_id', to: 'setlists#update'
-  post '/setlists/:id/songs/new', to: 'setlists#add_song', as: :add_setlist_song
+  post '/setlists', to: 'setlists#create'
+  put '/setlists', to: 'setlists#update'
+  delete 'setlists', to: 'setlists#destroy'
 
-  delete '/setlists/:id/songs/:song_id', to: 'setlists#remove_song', as: :remove_song
+  post '/songs', to: 'songs#create'
+  put '/songs', to: 'songs#update'
+  delete 'songs', to: 'songs#destroy'
 
-  get '/songs/:id/setlists/new', to: 'songs#add_setlist', as: :add_setlist
-  # probably won't need this route.  setlists not explicitly added to songs by user (yet)
-  post '/songs/:id/setlists/new', to: 'songs#add_setlist'
-  delete '/songs/:id/setlists/:setlist_id', to: 'setlists#add_song', as: :remove_setlist
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

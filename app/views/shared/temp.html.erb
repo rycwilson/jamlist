@@ -1,0 +1,23 @@
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="<%= 'active' if current_page?(setlists_path) %>"><%= link_to "Setlists", setlists_path %></li>
+        <li class="<%= 'active' if current_page?(songs_path) %>"><%= link_to "Songs", songs_path %></li>
+      </ul>
+
+      <%= form_tag(songs_path, method: "get", class: "navbar-form navbar-left",  role: "search") do %>
+        <datalist id="library_songs">
+          <% @songs_all.each do |song| %>
+            <option value="<%= song.title %> - <%= song.artist %>">
+          <% end %>
+        </datalist>
+        <div class="form-group">
+          <%= text_field_tag(:go_to_song, nil, class: "form-control", placeholder: "Find a song", list: "library_songs") %>
+        </div>
+        <%= submit_tag("Open", class: "btn btn-default") %>
+      <% end %>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Logout</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->

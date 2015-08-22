@@ -4,10 +4,12 @@ Rails.application.routes.draw do
 
   get '/jamlist', to: 'site#show'
 
+  get '/setlists', to: 'setlists#show'
   post '/setlists', to: 'setlists#create'
   put '/setlists', to: 'setlists#update'
   delete 'setlists', to: 'setlists#destroy'
 
+  get '/songs', to: 'songs#show'
   post '/songs', to: 'songs#create'
   put '/songs', to: 'songs#update'
   delete 'songs', to: 'songs#destroy'

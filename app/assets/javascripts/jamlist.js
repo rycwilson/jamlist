@@ -11,6 +11,8 @@ app.controller("MainCtrl", ['$scope', '$http', 'songFactory', 'setlistFactory',
 
   $scope.songs = null;
   $scope.setlists = null;
+  $scope.newSetlist = {};
+  $scope.newSong = {};
 
   allSongs();
   allSetlists();
@@ -22,7 +24,7 @@ app.controller("MainCtrl", ['$scope', '$http', 'songFactory', 'setlistFactory',
         console.log(songs);
       })
       .error(function (error) {
-        console.log('Error loading data: ' + error.message);
+        console.log('Error loading data: ' + error);
       });
   }
 
@@ -33,9 +35,33 @@ app.controller("MainCtrl", ['$scope', '$http', 'songFactory', 'setlistFactory',
         console.log(setlists);
       })
       .error(function (error) {
-        console.log('Error loading data: ' + error.message);
+        console.log('Error loading data: ' + error);
       });
   }
+
+  $scope.addSetlist = function () {
+    $scope.setlists.push($scope.newSetlist);
+    setlistFactory.addSetlist($scope.newSetlist)
+      .success(function (setlist) {
+        console.log('success: ', setlist);
+      })
+      .error(function (error) {
+        console.log('Error adding setlist: ' + error);
+      });
+    $scope.newSetlist = null;
+  };
+
+  $scope.addSong = function () {
+    $scope.songs.push($scope.newSong);
+    songFactory.addSong($scope.newSong)
+      .success(function (song) {
+        console.log('success: ', song);
+      })
+      .error(function (error) {
+        console.log('Error adding song: ' + error);
+      });
+    $scope.newSong = null;
+  };
 
   $scope.tabSelected = function(checkTab) {
     return $scope.tab === checkTab;
@@ -47,20 +73,26 @@ app.controller("MainCtrl", ['$scope', '$http', 'songFactory', 'setlistFactory',
 
 }]);
 
+app.factory('setlistFactory', ['$http', function ($http) {
+  var setlistFactory = {};
+  setlistFactory.getSetlists = function () {
+    return $http.get('/setlists.json');
+  };
+  setlistFactory.addSetlist = function (newSetlist) {
+    return $http.post('/setlists.json', {setlist: newSetlist});
+  };
+  return setlistFactory;
+}]);
+
 app.factory('songFactory', ['$http', function ($http) {
   var songFactory = {};
   songFactory.getSongs = function() {
     return $http.get('/songs.json');
   };
-  return songFactory;
-}]);
-
-app.factory('setlistFactory', ['$http', function ($http) {
-  var setlistFactory = {};
-  setlistFactory.getSetlists = function() {
-    return $http.get('/setlists.json');
+  songFactory.addSong = function(newSong) {
+    return $http.post('/songs.json', {song: newSong});
   };
-  return setlistFactory;
+  return songFactory;
 }]);
 
 /*

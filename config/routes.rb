@@ -4,15 +4,20 @@ Rails.application.routes.draw do
 
   get '/jamlist', to: 'site#show'
 
-  get '/setlists', to: 'setlists#show'
+  get '/setlists', to: 'setlists#index'
   post '/setlists', to: 'setlists#create'
   put '/setlists', to: 'setlists#update'
   delete 'setlists', to: 'setlists#destroy'
 
-  get '/songs', to: 'songs#show'
+  get '/songs', to: 'songs#index'
   post '/songs', to: 'songs#create'
   put '/songs', to: 'songs#update'
   delete 'songs', to: 'songs#destroy'
+
+  # these routes are necessary for using respond_with
+  # (despite there being no redirect for JSON response)
+  get '/setlists/:id', to: 'setlists#show', as: 'setlist'
+  get '/songs/:id', to: 'songs#show', as: 'song'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

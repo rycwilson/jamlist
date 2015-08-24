@@ -10,16 +10,44 @@
           <a ng-click="selectTab(2)">Songs</a>
         </li>
       </ul>
-      <!-- tab content panels -->
+      <!-- setlists -->
       <div class="panel panel-default" ng-show="tabSelected(1)">
         <div class='panel-body'>
-          <ul>
-            <li ng-repeat="setlist in setlists">{{ setlist.name }}</li>
-          </ul>
+          <div class='col-md-6'>
+            <form class='form-inline' ng-submit='addSetlist()'>
+              <div class='form-group'>
+                <label for="new-setlist">Name: </label>
+                <input type="text" class='form-control' id='new-setlist'
+                  ng-model='newSetlist.name' placeholder='new setlist'>
+                <button class='btn btn-default'>
+                  <span class='glyphicon glyphicon-plus'</span>
+                </button>
+              </div>
+            </form>
+            <br>
+            <ul>
+              <li ng-repeat="setlist in setlists">{{ setlist.name }}</li>
+            </ul>
+          </div>
         </div>
       </div>
+      <!-- songs -->
       <div class="panel panel-default" ng-show="tabSelected(2)">
         <div class='panel-body'>
+          <form class='form-inline' ng-submit='addSong()'>
+            <div class='form-group'>
+              <label for="new-song-title">Title: </label>
+              <input type="text" class='form-control' id='new-song-title'
+                ng-model='newSong.title' placeholder='new song title'>
+              <label for="new-song-artist"> Artist: </label>
+              <input type="text" class='form-control' id='new-song-artist'
+                ng-model='newSong.artist' placeholder='new song artist'>
+              <button class='btn btn-default'>
+                <span class='glyphicon glyphicon-plus'</span>
+              </button>
+            </div>
+          </form>
+          <br>
           <ul>
             <li ng-repeat="song in songs">{{ song.title }} - {{ song.artist }}</li>
           </ul>

@@ -6,18 +6,34 @@ class SongsController < ApplicationController
   #
   # GET /songs.json
   #
-  def show
+  def index
     @songs = Song.all
     respond_with @songs, include: [:setlists]
   end
 
+  #
+  # POST /songs.json
+  #
   def create
+    @song = Song.new song_params
+    if @song.save
+      respond_with @song
+    else
+      render json: { status:"error",
+                       mesg:"validations failed" }, status: 500
+    end
   end
 
   def update
   end
 
   def destroy
+  end
+
+  private
+
+  def song_params
+    params.require(:song).permit(:title, :artist)
   end
 
 end

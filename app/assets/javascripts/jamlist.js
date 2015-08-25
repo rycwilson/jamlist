@@ -13,6 +13,7 @@ app.controller("MainCtrl", ['$scope', '$http', 'songFactory', 'setlistFactory',
   $scope.setlists = null;
   $scope.newSetlist = {};
   $scope.newSong = {};
+  $scope.sortSongBy = 'title';
 
   allSongs();
   allSetlists();
@@ -38,6 +39,13 @@ app.controller("MainCtrl", ['$scope', '$http', 'songFactory', 'setlistFactory',
         console.log('Error loading data: ' + error);
       });
   }
+
+  $scope.sortSongs = function () {
+    if ($scope.sortSongBy === 'title')
+      return 'title';
+    if ($scope.sortSongBy === 'artist')
+      return 'artist';
+  };
 
   $scope.addSetlist = function () {
     $scope.setlists.push($scope.newSetlist);

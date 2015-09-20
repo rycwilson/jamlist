@@ -15,10 +15,10 @@ app.controller("MainCtrl", ['$scope', '$http', 'songFactory', 'setlistFactory',
   $scope.newSong = {};
   $scope.sortSongBy = 'title';
 
-  allSongs();
-  allSetlists();
+  getAllSongs();
+  getAllSetlists();
 
-  function allSongs () {
+  function getAllSongs () {
     songFactory.getSongs()
       .success(function (songs) {
         $scope.songs = songs;
@@ -29,7 +29,7 @@ app.controller("MainCtrl", ['$scope', '$http', 'songFactory', 'setlistFactory',
       });
   }
 
-  function allSetlists () {
+  function getAllSetlists () {
     setlistFactory.getSetlists()
       .success(function (setlists) {
         $scope.setlists = setlists;
@@ -101,6 +101,10 @@ app.factory('songFactory', ['$http', function ($http) {
     return $http.post('/songs.json', {song: newSong});
   };
   return songFactory;
+}]);
+
+app.controller('LyricsCtrl', ['$http', function ($http) {
+
 }]);
 
 /*

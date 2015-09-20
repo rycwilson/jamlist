@@ -10,13 +10,10 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-// # Removed turbolinks per Bower install
+// # Removed turbolinks per Angular/Rails tutorial
 //
-//= require jquery
-//= require jquery_ujs
-//= require angular/angular
-//= require angular-resource/angular-resource
-//= require angular-route/angular-route
-//= require angular-ui-bootstrap-bower/ui-bootstrap.js
-//= require angular-ui-bootstrap-bower/ui-bootstrap-tpls.js
+//= require jquery/dist/jquery.min
+//= require jquery-ujs/src/rails
+//= require angular/angular.min
+//= require bootstrap-sass/assets/javascripts/bootstrap.min
 //= require_tree .

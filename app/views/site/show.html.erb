@@ -1,8 +1,8 @@
 <div ng-app='JamList'>
   <div ng-controller='MainCtrl'>
 
-    <section ng-init='tab = 1'>
-      <ul class="nav nav-tabs">
+    <section class='col-md-6' ng-init='tab = 1'>
+      <ul class="nav nav-pills">
         <li ng-class="{ active:tabSelected(1) }">
           <a ng-click="selectTab(1)">Setlists</a>
         </li>
@@ -10,10 +10,10 @@
           <a ng-click="selectTab(2)">Songs</a>
         </li>
       </ul>
+      <br>
       <!-- setlists -->
       <div class="panel panel-default" ng-show="tabSelected(1)">
         <div class='panel-body'>
-          <div class='col-md-6'>
             <form class='form-inline' ng-submit='addSetlist()'>
               <div class='form-group'>
                 <label for="new-setlist">Name: </label>
@@ -28,7 +28,6 @@
             <ul>
               <li ng-repeat="setlist in setlists">{{ setlist.name }}</li>
             </ul>
-          </div>
         </div>
       </div>
       <!-- songs -->
@@ -51,12 +50,34 @@
           <label>Sort:&nbsp</label>
           <a ng-click="sortSongBy = 'title'"><strong>title</strong>&nbsp|</a>
           <a ng-click="sortSongBy = 'artist'"><strong>artist</strong></a>
+          <br>
           <ul>
-            <li ng-show="sortSongBy === 'title'" ng-repeat='song in songs | orderBy:sortSongs(order)'>{{ song.title }} - {{ song.artist }}</li>
-            <li ng-show="sortSongBy === 'artist'" ng-repeat='song in songs | orderBy:sortSongs(order)'>{{ song.artist }} - {{ song.title }}</li>
+            <li ng-show="sortSongBy === 'title'"
+              ng-repeat='song in songs | orderBy:sortSongs(order)'>
+              {{ song.title }} - {{ song.artist }}
+            </li>
+            <li ng-show="sortSongBy === 'artist'"
+              ng-repeat='song in songs | orderBy:sortSongs(order)'>
+              {{ song.artist }} - {{ song.title }}
+            </li>
           </ul>
         </div>
       </div>
+    </section>
+
+    <section class='col-md-6'>
+      <ul class="nav nav-pills">
+        <li>
+          <a href='#'>Lyrics</a>
+        </li>
+      </ul>
+      <br>
+      <div class="panel panel-default">
+        <div class='panel-body'>
+          <iframe src='http://www.fark.com' style='overflow-hidden'></iframe>
+        </div>
+      </div>
+
     </section>
 
   </div>

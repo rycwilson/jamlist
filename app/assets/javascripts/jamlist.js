@@ -13,32 +13,26 @@ app.controller("MainCtrl", ['$scope', '$http', 'songFactory', 'setlistFactory',
   $scope.setlists = null;
   $scope.newSetlist = {};
   $scope.newSong = {};
-  $scope.sortSongBy = 'title';
+  $scope.sortSongBy = 'artist';
 
   getAllSongs();
   getAllSetlists();
 
-  function getAllSongs () {
-    songFactory.getSongs()
-      .success(function (songs) {
-        $scope.songs = songs;
-        console.log(songs);
-      })
-      .error(function (error) {
-        console.log('Error loading data: ' + error);
-      });
-  }
-
-  function getAllSetlists () {
-    setlistFactory.getSetlists()
-      .success(function (setlists) {
-        $scope.setlists = setlists;
-        console.log(setlists);
-      })
-      .error(function (error) {
-        console.log('Error loading data: ' + error);
-      });
-  }
+  $scope.getLyrics = function (song) {
+    // need to strip out special characters and replace with
+    // url encoding
+    $.getJSON("http://lyrics.wikia.com/api.php?callback=?",
+      {
+        func: 'getSong',
+        artist: song.artist,
+        song: song.title,
+        fmt: 'realjson' // legacy fix... see docs
+      },
+      function (data, status) {
+        console.log(data);
+      }
+    );
+  };
 
   $scope.sortSongs = function () {
     if ($scope.sortSongBy === 'title')
@@ -78,6 +72,28 @@ app.controller("MainCtrl", ['$scope', '$http', 'songFactory', 'setlistFactory',
   $scope.selectTab = function(setTab) {
     $scope.tab = setTab;
   };
+
+  function getAllSongs () {
+    songFactory.getSongs()
+      .success(function (songs) {
+        $scope.songs = songs;
+        console.log(songs);
+      })
+      .error(function (error) {
+        console.log('Error loading data: ' + error);
+      });
+  }
+
+  function getAllSetlists () {
+    setlistFactory.getSetlists()
+      .success(function (setlists) {
+        $scope.setlists = setlists;
+        console.log(setlists);
+      })
+      .error(function (error) {
+        console.log('Error loading data: ' + error);
+      });
+  }
 
 }]);
 
